@@ -4,7 +4,6 @@ from datetime import datetime
 
 app = FastAPI()
 
-# حافظه موقت برای نگه داشتن آخرین نتیجه
 LAST_RESULT = {
     "last_run_at": None,
     "count": 0,
@@ -22,14 +21,13 @@ def run():
 
     try:
         jobs = scrape_jobs(
-            site_name=["google", "linkedin", "indeed"],
+            site_name=["google"],      # فقط Google
             search_term="SEO",
             location="United States",
-            hours_old=168,  # 7 روز اخیر
-            fetch_full_description=True
+            hours_old=168              # ۷ روز اخیر
         )
 
-        # فقط جاب‌هایی که SEO توی title دارن
+        # فیلتر SEO در title
         jobs = jobs[jobs["title"].str.contains("SEO", case=False, na=False)]
 
         records = jobs.to_dict("records")

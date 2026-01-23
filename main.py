@@ -1,24 +1,28 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, BackgroundTasks
 from jobspy import scrape_jobs
+import json
 
 app = FastAPI()
 
-
-# تست سلامت سرویس
 @app.get("/")
 def health():
     return {"status": "ok"}
 
-
-# اجرای اسکریپر (نسخه سبک)
-@app.post("/run")
-def run():
+def run_scraper():
     jobs = scrape_jobs(
-        site_name=["google"],        # فقط Google (سبک و پایدار)
+        site_name=["google"],
         search_term="SEO",
         location="United States",
-        hours_old=168                # ۷ روز اخیر
+        hours_old=168,
+        fetch_full_description=True
     )
 
-    # تبدیل خروجی به JSON
-    return jobs.to_dict("records")
+    jobs = jobs[jobs["title"].str.contains("SEO", case=False, na=False)]
+
+    with open("jobs.json", "w") as f:
+        f.write(jobs.to_json(orient="records"))
+
+@app.post("/run")
+def run(background_tasks: BackgroundTasks):
+    background_tasks.add_task(run_scraper)
+    return {"started": True}

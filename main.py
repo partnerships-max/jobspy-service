@@ -2,17 +2,28 @@
 def run():
     global LAST_RESULT
 
-    LAST_RESULT = {
-        "last_run_at": datetime.utcnow().isoformat(),
-        "count": 1,
-        "data": [
-            {
-                "title": "TEST SEO JOB",
-                "company": "Test Company",
-                "site": "test",
-            }
-        ],
-        "error": None
-    }
+    try:
+        jobs = scrape_jobs(
+            site_name=["google"],
+            search_term="SEO",
+            location="United States",
+            hours_old=168
+        )
 
-    return {"started": True}
+        LAST_RESULT = {
+            "last_run_at": datetime.utcnow().isoformat(),
+            "count": 0,
+            "data": [],
+            "error": f"columns: {list(jobs.columns)}"
+        }
+
+        return {"started": True}
+
+    except Exception as e:
+        LAST_RESULT = {
+            "last_run_at": datetime.utcnow().isoformat(),
+            "count": 0,
+            "data": [],
+            "error": str(e)
+        }
+        return {"started": False, "error": str(e)}

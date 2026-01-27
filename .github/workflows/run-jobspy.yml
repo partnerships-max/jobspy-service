@@ -19,7 +19,8 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install jobspy pandas playwright
+          pip install pandas playwright
+          pip install git+https://github.com/speedyapply/JobSpy.git
           playwright install chromium
 
       - name: Run scraper

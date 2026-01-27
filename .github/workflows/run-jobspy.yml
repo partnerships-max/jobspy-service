@@ -33,3 +33,9 @@ jobs:
         with:
         name: jobspy-results
         path: results.json
+        - name: Send results to n8n
+        run: |
+        curl -X POST \
+        -H "Content-Type: application/json" \
+        --data-binary @results.json \
+        https://riseopp.app.n8n.cloud/webhook/jobspy-results

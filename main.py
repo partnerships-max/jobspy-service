@@ -67,9 +67,8 @@ def run():
         
 @app.get("/results")
 def results():
-    if LAST_RESULT["last_run_at"] is None:
-        return {
-            "status": "no_run_yet",
-            "message": "اول باید /run اجرا شود"
-        }
-    return LAST_RESULT
+    try:
+        return LAST_RESULT
+    except Exception as e:
+        return {"error": str(e)}
+

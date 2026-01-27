@@ -9,8 +9,12 @@ jobs = scrape_jobs(
     fetch_full_description=True
 )
 
-jobs = jobs[jobs["job_title"].str.contains("SEO", case=False, na=False)]
+print("COLUMNS:", list(jobs.columns))  # 👈 این خط اضافه شد
+
+# انتخاب امن ستون عنوان
+title_col = "job_title" if "job_title" in jobs.columns else "title"
+
+jobs = jobs[jobs[title_col].str.contains("SEO", case=False, na=False)]
 
 jobs.to_json("results.json", orient="records")
-
 print("DONE")

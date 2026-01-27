@@ -9,7 +9,8 @@ jobs = scrape_jobs(
     fetch_full_description=True
 )
 
-# فیلتر روی عنوان شغل
+print("ROWS:", len(jobs))
+
 jobs = jobs[jobs["title"].str.contains("SEO", case=False, na=False)]
 
 jobs.to_json("results.json", orient="records")

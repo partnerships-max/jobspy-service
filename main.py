@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from jobspy import scrape_jobs
 from datetime import datetime
 
 app = FastAPI()
@@ -20,6 +19,8 @@ def run():
     global LAST_RESULT
 
     try:
+        from jobspy import scrape_jobs   # 👈 اینجا اضافه شد
+
         jobs = scrape_jobs(
             site_name=["google", "indeed", "linkedin"],
             search_term="SEO",
@@ -28,11 +29,9 @@ def run():
             fetch_full_description=True
         )
 
-        # ✅ فیلتر درست: فقط job_title
         if "job_title" in jobs.columns:
             jobs = jobs[jobs["job_title"].str.contains("SEO", case=False, na=False)]
 
-        # ✅ تبدیل به خروجی تمیز
         records = []
         for _, row in jobs.iterrows():
             records.append({
@@ -65,7 +64,12 @@ def run():
             "error": str(e)
         }
         return {"started": False, "error": str(e)}
-
+        
 @app.get("/results")
 def results():
+    if LAST_RESULT["last_run_at"] is None:
+        return {
+            "status": "no_run_yet",
+            "message": "اول باید /run اجرا شود"
+        }
     return LAST_RESULT

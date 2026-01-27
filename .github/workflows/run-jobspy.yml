@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install jobspy pandas playwright
+          pip install jobspy-python pandas playwright
           playwright install chromium
 
       - name: Run scraper

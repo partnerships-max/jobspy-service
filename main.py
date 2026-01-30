@@ -6,7 +6,7 @@ jobs = scrape_jobs(
     search_term="SEO",
     location="United States",
     hours_old=168,
-    fetch_full_description=True
+    fetch_full_description=False
 )
 
 print("ROWS:", len(jobs))

@@ -2,7 +2,7 @@ from jobspy import scrape_jobs
 import json
 
 jobs = scrape_jobs(
-    site_name=["google", "indeed", "linkedin"],
+    site_name=["indeed"],
     search_term="SEO",
     location="United States",
     hours_old=168,

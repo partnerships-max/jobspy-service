@@ -20,10 +20,8 @@ if jobs is None or len(jobs) == 0:
     print("No results")
     exit(0)
 
-jobs = jobs[
-    jobs["title"].str.contains("SEO", case=False, na=False)
-    | jobs["description"].str.contains("SEO", case=False, na=False)
-]
+ # Keep only rows where title contains "SEO"
+jobs = jobs[jobs["title"].str.contains(r"\bSEO\b", case=False, na=False)]
 
 if "job_url" in jobs.columns:
     jobs = jobs.drop_duplicates(subset=["job_url"])

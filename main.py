@@ -1,5 +1,4 @@
 import json
-import pandas as pd
 from jobspy import scrape_jobs
 
 jobs = scrape_jobs(
@@ -36,6 +35,6 @@ else:
 records = jobs.to_dict(orient="records")
 
 with open("results.json", "w", encoding="utf-8") as f:
-    json.dump(records, f, ensure_ascii=False, indent=2)
+    json.dump(records, f, ensure_ascii=False, indent=2, default=str)
 
 print("DONE")

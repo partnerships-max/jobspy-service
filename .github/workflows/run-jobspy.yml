@@ -34,4 +34,4 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             --data-binary @results.json \
-            https://riseopp.app.n8n.cloud/webhook-test/de5dc7e0-14fe-412a-a416-6db51ffc6730 || true
+            https://riseopp.app.n8n.cloud/webhook-test/jobspy-results || true

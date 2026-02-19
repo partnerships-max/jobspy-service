@@ -11,7 +11,7 @@ jobs = scrape_jobs(
     hours_old=24,
     country_indeed="USA",
     description_format="markdown",
-    linkedin_fetch_description=False,
+    linkedin_fetch_description=True,
 )
 
 print("ROWS:", len(jobs))

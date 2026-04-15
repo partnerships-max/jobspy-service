@@ -3,7 +3,7 @@ name: Run JobSpy Scraper
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 15 * * *"
 
 jobs:
   scrape:
@@ -34,4 +34,4 @@ jobs:
           curl -X POST \
             -H "Content-Type: application/json" \
             --data-binary @results.json \
-            https://riseopp.app.n8n.cloud/webhook-test/b660029f-9ef3-4538-becf-6ef573bbf2d0 || true
+            https://riseopp.app.n8n.cloud/webhook/b660029f-9ef3-4538-becf-6ef573bbf2d0 || true

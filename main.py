@@ -37,4 +37,4 @@ records = jobs.to_dict(orient="records")
 with open("results.json", "w", encoding="utf-8") as f:
     json.dump(records, f, ensure_ascii=False, indent=2, default=str, allow_nan=False)
 
-print("DONE")
+print("DONE — final jobs:", len(records))

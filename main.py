@@ -4,8 +4,8 @@ from jobspy import scrape_jobs
 
 jobs = scrape_jobs(
     site_name=["google", "indeed", "linkedin"],
-    search_term="SEO OR GEO OR AEO",                       # ← قبلاً: "SEO"
-    google_search_term="SEO OR GEO OR AEO jobs United States",  # ← قبلاً: "SEO jobs United States"
+    search_term="SEO",                            # ← برگردون به این
+    google_search_term="SEO jobs United States",  # ← برگردون به این
     location="United States",
     results_wanted=50,
     hours_old=24,
@@ -21,6 +21,7 @@ if jobs is None or len(jobs) == 0:
     exit(0)
 
  # Keep only rows where title contains "SEO"
+# قبلاً: r"\bSEO\b"
 # قبلاً: r"\bSEO\b"
 jobs = jobs[jobs["title"].str.contains(r"\b(?:SEO|GEO|AEO)\b", case=False, na=False, regex=True)]
 
